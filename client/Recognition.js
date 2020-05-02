@@ -115,7 +115,7 @@ export default class Recognition extends React.Component {
         console.log("HERE", this.state)
         return (
             <div>
-        <p>{this.speechToText} here suposed to be text from speaker</p>
+        <p>{this.state.speechToText}</p>
         <button onClick={this.handleClick}>Click to speak</button>
       </div>
         )
