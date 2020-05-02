@@ -3,8 +3,9 @@ import axios from 'axios'
 import Synonyms from './Synonyms'
 
 export default class Definitions extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    console.log("props word", props.word)
     this.state = {
       word: [],
       definition: [],
@@ -15,30 +16,20 @@ export default class Definitions extends Component {
 
   async componentDidMount() {
     try {
-     const data = await 
-     axios({
-      "method":"GET",
-        url: 'https://wordsapiv1.p.rapidapi.com/words/lovely',
-        headers: {
-          'content-type': 'application/json',
-          'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
-          'x-rapidapi-key':
-            '940d6eea4bmsh6adc01f24b0b776p1eb0aejsne0be82199283',
-        },
-      })
+     const data = await axios('/api/definitions/house')
         .then((response) => {
           //this.setState({ definitions: response.data })
-          this.setState({
-            word: response.data.word,
-            definition: response.data.results[0].definition,
-            synonyms: response.data.results[0].synonyms,
-            similarTo: response.data.results[0].similarTo[0]
-          })
+          // this.setState({
+          //   word: response.data.word,
+          //   definition: response.data.results[0].definition,
+          //   synonyms: response.data.results[0].synonyms,
+          //   similarTo: response.data.results[0].similarTo[0]
+          // })
           console.log("data",response.data)
           console.log("WORD",response.data.word)
           console.log("DEFINITION",response.data.results[0].definition)
-          console.log("SYNONYMS",response.data.results[0].synonyms[0])
-          console.log("SYMILAR TO",response.data.results[0].similarTo[0])
+          // console.log("SYNONYMS",response.data.results[0].synonyms[0])
+          // console.log("SYMILAR TO",response.data.results[0].similarTo[0])
         })
         .catch((error) => {
           console.log(error)

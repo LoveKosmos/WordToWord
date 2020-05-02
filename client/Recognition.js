@@ -2,9 +2,9 @@ import React from 'react'
 import { render } from 'react-dom'
 
 export default class Recognition extends React.Component {
-    constructor() {
-        super()
-
+    constructor(props) {
+        super(props)
+        console.log("PROPS HERE",props)
         window.recognitionComponent = this
         console.log(window.recognitionComponent)
         this.state = {
@@ -15,14 +15,14 @@ export default class Recognition extends React.Component {
         console.log("handleClick")
         const SpeechRecognition =
             window.SpeechRecognition || window.webkitSpeechRecognition
-        var recognition = new SpeechRecognition()
+        let recognition = new SpeechRecognition()
         recognition.start()
         recognition.onresult = (event) => {
             console.log('EVENT =====>', event)
             let speechToText = event.results[0][0].transcript
             console.log('SPEECH TO TEXT =====>', speechToText)
             window.recognitionComponent.setState({ speechToText: speechToText })
-
+            window.recognitionComponent.props.setRootWord(speechToText)
     
             //   if (speechToText.includes('what is')) {
             //     let inputWord = speechToText.slice(8)

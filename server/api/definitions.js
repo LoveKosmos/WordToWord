@@ -60,44 +60,39 @@ router.get('/', async (req, res, next) => {
 //   }
 // })
 
-// GET /api/authors/:authorId
-router.get('/:authorId', async (req, res, next) => {
+router.get("/:word", async (req, res, next) => {
   try {
-    const author = await Author.findById(req.params.authorId)
-    res.json(author)
-  } catch (error) {
-    next(error)
-  }
-})
-
-// GET /api/authors/:authorId/comments
-router.get('/:authorId/comments', async (req, res, next) => {
-  try {
-    const comments = await Comment.findAll({
-      where: {
-        authorId: req.params.authorId,
+    const data = await axios({
+      method: "GET",
+      url: `https://wordsapiv1.p.rapidapi.com/words/${req.params.word}`,
+      headers: {
+        "content-type": "application/json",
+        "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+        "x-rapidapi-key": "940d6eea4bmsh6adc01f24b0b776p1eb0aejsne0be82199283",
       },
-      include: [Author],
     })
-    res.json(comments)
+      .then((response) => {
+        console.log("data", response.data);
+        console.log("WORD", response.data.word);
+        console.log("DEFINITION", response.data.results[0].definition);
+        console.log("SYNONYMS", response.data.results[0].synonyms[0]);
+        // console.log("SYMILAR TO", response.data.results[0].similarTo[0]);
+        var jsonObject = {          
+          word: response.data.word,
+          definition: response.data.results[0].definition,
+          synonyms: response.data.results[0].synonyms[0],
+          // similarTo: response.data.results[0].similarTo[0]
+        }
+        console.log("jsonObject",jsonObject)
+        console.log("res",res)
+        res.json(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
-
-// GET /api/authors/:authorId/stories
-router.get('/:authorId/stories', async (req, res, next) => {
-  try {
-    const story = await Story.findAll({
-      where: {
-        authorId: req.params.authorId,
-      },
-      include: [Author],
-    })
-    res.json(story)
-  } catch (error) {
-    next(error)
-  }
-})
+});
 
 module.exports = router
