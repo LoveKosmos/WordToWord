@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import Synonyms from './Synonyms'
+// import Synonyms from './Synonyms'
 
 export default class Definitions extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class Definitions extends Component {
 
   async componentDidMount() {
     try {
-     const data = await axios('/api/definitions/house')
+     const data = await axios(`/api/definitions/${this.state.word}`)
         .then((response) => {
           //this.setState({ definitions: response.data })
           // this.setState({

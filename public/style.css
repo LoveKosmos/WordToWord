@@ -206,3 +206,18 @@ td {
 .mr1 {
   margin-right: 1em;
 }
+#paragraphButton {
+  text-align: center;
+  /* font-size: 150%; */
+  /* margin: 10px 5px 15px 20px; */
+}
+p.speechParagraph {
+  text-align: center;
+  font-size: 150%;
+  margin: 10px 5px 15px 20px;
+}
+.btn-lg{
+  font-size: 150%;
+  margin: 10px 5px 15px 20px;
+  border-radius: 12px;
+}
